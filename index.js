@@ -1,9 +1,10 @@
 const express = require(`express`);
 const app = express();
 const path = require (`path`);
-// const { v4: uuidv4 } = require('uuid'); 
+const { v4: uuidv4 } = require('uuid'); 
 // const methodOverride = require(`method-override`); 
 const mongoose = require('mongoose');
+const Product = require('./models/product');
 
 
 //connect monggose
@@ -30,9 +31,17 @@ app.get(`/`, (req, res) => {
     res.send("Mongodb")
 });
 
-app.get(`*`, (req, res) => {
-    res.send("Salah")
+app.get(`/product`, async (req, res) => {
+    const product = await Product.find({});
+    
+    res.render("products/index", {product});
+
+    
 });
+
+// app.get(`*`, (req, res) => {
+//     res.send("Salah")
+// });
 
 
 
