@@ -7,13 +7,16 @@
 </head>
 <body>
     <h1>Products</h1>
+    <a href="/product/create"><button>Menambahkan Product</button></a>
     <ul>
     <% for(let Product of product) { %>
         <li>
-            <a href="/product/<%= Product.id %>"> 
-                
-            <%= Product.name %> - <%= Product.brand %> </li> <% } %> </a>
+            <a href="/product/<%= Product._id %>"> 
 
+            <%= Product.name %> - <%= Product.brand %>  
+         </a>
+        </li>
+    <% } %>
     </ul>
 </body>
 </html>

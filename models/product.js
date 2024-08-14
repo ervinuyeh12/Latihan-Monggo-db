@@ -2,12 +2,7 @@ const mongoose = require(`mongoose`);
 
 
 const productSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        require : true
-
-
-},   name: {
+    name: {
         type: String,
         require : true
 }, 
@@ -24,9 +19,9 @@ const productSchema = new mongoose.Schema({
         type: String,
         require : true 
 }, 
-    size: {
+    category: {
         type: String,
-        enum: ["S", "M", "L"]
+        enum: ["Baju", "Celana", "Aksesoris", "Jaket"]
 }
 })
 
