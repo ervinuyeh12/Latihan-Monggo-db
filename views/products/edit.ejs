@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengedit Produk</title>
+</head>
+<body>
+    <h1>Edit a product</h1>
+    <ul>
+    <form action="/product/<%= product._id %>?_method=PUT" method="post">
+        <li>
+            <label for="name">Nama Produk</label>
+            <input type="text" name="name" id="name" value="<%= product.name %>">
+        </li>
+        
+        <li>
+            <label for="brand">Nama Brand</label>
+            <input type="text" name="brand" id="brand" value="<%= product.brand %>">
+        </li>
+       
+        <li>
+            <label for="color">Warna Produk</label>
+            <input type="text" name="color" id="color" value="<%= product.color %>">
+        </li>
+       
+        <li>
+            <label for="price">Harga Produk</label>
+            <input type="number" name="price" id="price" value="<%= product.price %>">
+        </li>
+        
+        <li>
+            <label for="category">Jenis Produk</label>
+            <select name="category" id="category">
+                <option value="">Pilih Kategori</option>
+                <option value="Aksesoris" <%= product.category == "Aksesoris" ? "selected" : "" %>>Aksesoris</option>
+                <option value="Baju" <%= product.category == "Baju" ? "selected" : "" %>>Baju</option>
+                <option value="Celana" <%= product.category == "Celana" ? "selected" : "" %>>Celana</option>
+                <option value="Jaket" <%= product.category == "Jaket" ? "selected" : "" %>>Jaket</option>
+            </select>
+        </li>
+        <button type="submit">Submit</button>
+    </form>
+    </ul>
+    <a href="/product">Kembali</a>
+</body>
+</html>

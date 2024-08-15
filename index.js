@@ -2,7 +2,7 @@ const express = require(`express`);
 const app = express();
 const path = require (`path`);
 const { v4: uuidv4 } = require('uuid'); 
-// const methodOverride = require(`method-override`); 
+const methodOverride = require(`method-override`); 
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 
@@ -16,46 +16,13 @@ mongoose.connect(`mongodb://127.0.0.1/shop_db`)
 });
 
 
-// // Connect to MongoDB (untuk remove duplicate)
-// mongoose.connect(`mongodb://127.0.0.1/shop_db`)
-//     .then(() => {
-//         console.log("Connected to MongoDB");
-//         removeDuplicates();
-//     })
-//     .catch(err => {
-//         console.log("Failed to connect to MongoDB:", err);
-//     });
-
-// async function removeDuplicates() {
-//     try {
-//         const products = await Product.find({});
-//         const seen = new Set();
-
-//         for (const product of products) {
-//             const identifier = `${product.name}-${product.brand}`;
-            
-//             if (seen.has(identifier)) {
-//                 // Hapus produk duplikat
-//                 await Product.findByIdAndDelete(product._id);
-//                 console.log(`Duplicate removed: ${product.name} - ${product.brand}`);
-//             } else {
-//                 seen.add(identifier);
-//             }
-//         }
-
-//         console.log("Duplicate removal completed.");
-//         mongoose.connection.close();
-//     } catch (err) {
-//         console.log("Error during duplicate removal:", err);
-//     }
-// }
 
 
 app.use(express.urlencoded({extended: true}));
 
 app.use(express.json());
 
-// app.use(methodOverride(`_method`));
+app.use(methodOverride(`_method`));
 
 app.set(`views`, path.join(__dirname, `views`));
 app.set(`view engine`, `ejs`);
@@ -68,10 +35,15 @@ app.get(`/`, (req, res) => {
 });
 
 app.get(`/product`, async (req, res) => {
-    const product = await Product.find({});
-    
-    res.render("products/index", {product});
+    const {category} = req.query;
 
+    if(category) {
+    const product = await Product.find({ category })
+    res.render("products/index", { product, category })
+} else {
+    const product = await Product.find({});
+    res.render("products/index", {product, category: "All"});
+}
     
 });
 
@@ -97,6 +69,35 @@ app.get(`/product/:id`,  async (req, res) => {
     
 });
 
+app.get(`/product/:id/edit`,  async (req, res) => {
+    const { id } = req.params;
+    try { const product = await Product.findById(id);
+    if (!product) {
+        console.log(`Product with ID ${id} not found`);
+        return res.status(404).send('Product not found');
+    }
+    res.render("products/edit", { product });
+} catch (err) {
+    console.log(`Error finding product with ID ${id}:`, err);
+    res.status(500).send('Something went wrong');
+}
+});
+
+app.put(`/product/:id`,  async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true});
+    res.redirect(`${product._id}`);
+
+    
+});
+
+app.delete(`/product/:id`,  async (req, res) => {
+    const { id } = req.params;
+    await Product.findByIdAndDelete(id);
+    res.redirect("/product");
+
+    
+});
 
 // app.get(`*`, (req, res) => {
 //     res.send("Salah")
