@@ -8,25 +8,27 @@
 </head>
 <body>
     <h1><%= category %> Products</h1>
-    <a href="/product/create"><button>Menambahkan Product</button></a>
+    <a href="/product/create"><button>Menambahkan Product</button></a> 
 
+<p>
     <% if(category !== "All") { %>
         <a href="/product">All Products</a>
     <% } %>
 
     <% if(category === "All") { %>
-       
-        <select name="category" id="category">
+       <form action="/product" method="get">
+        <select name="category" id="category" >
             <option value="">Category Product</option>
             <option value="Aksesoris">Aksesoris</option>
             <option value="Baju">Baju</option>
             <option value="Celana">Celana</option>
             <option value="Jaket">Jaket</option>
-        
-        </select>
-        
+         </select>
+         <button type="submit">Lihat</button>
+        </form>
     <% } %>
-
+</p>
+<hr>
     <ul>
     <% for(let Product of product) { %>
         <li>
