@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,5 +37,14 @@
         </li>
     <% } %>
     </ul>
+
+
+    <!-- untuk pembuatan ...query string. tidak harus menambahkan /?bla bla (bisa langsung saja seperti dibawah ini) -->
+    <form action="/product/khusus/" method="get">
+    <label for="productkhusus">Produk Khusus:</label><br>
+    <input type="text" name="via" id="via" placeholder="Masukan Jalur "Via">
+    <button type="submit">Buka</button>
+    </form>
+
 </body>
 </html>

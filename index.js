@@ -28,6 +28,15 @@ app.set(`views`, path.join(__dirname, `views`));
 app.set(`view engine`, `ejs`);
 
 
+const auth = (req, res, next) => {
+    const { via } = req.query || {};
+    if (via === "ordal") {
+        next();
+    } else {
+        res.send("Tidak Bisa diakses");
+    }
+};
+
 //route path
 
 app.get(`/`, (req, res) => {
@@ -52,6 +61,22 @@ app.get(`/product/create`,  (req, res) => {
 
     
 });
+
+// app.get(`/product/khusus`, auth, async (req, res) => {
+//     const product = await Product.find({});
+//     res.render("products/khusus", {product});
+// });
+
+
+app.get('/product/khusus', auth, async (req, res) => {
+    try {
+        const products = await Product.find({});
+        res.render('products/khusus', { products });
+    } catch (error) {
+        res.status(500).send('Error retrieving products');
+    }
+});
+
 
 
 // pake mongosh beda mase
