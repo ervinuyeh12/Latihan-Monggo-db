@@ -17,9 +17,26 @@
         </li>
 
     </ul> 
-   <a href="http://127.0.0.1:3000/product"> <button >Kembali</button> </a>
+
+    <h2>Garments :</h2>
+    <% if(product.garment && product.garment.name.length) { %>
+        <ul>
+            <a href="/garments/<%= product.garment._id %>"><%= product.garment.name %></a>
+        </ul>
+       
+    
+    <% } else { %>
+        <p>No garment found.</p>
+    
+    <% } %>
+
+   
+  
+
+<a href="http://127.0.0.1:3000/product"> <button >Kembali</button> </a>
 
    <a href="/product/<%= product._id %>/edit"><button>Edit</button></a>
+
 
    <p>
         <form action="/product/<%= product._id %>?_method=delete" method="post">

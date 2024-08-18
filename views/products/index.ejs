@@ -8,14 +8,19 @@
 </head>
 <body>
     <h1><%= category %> Products</h1>
-    <a href="/product/create"><button>Menambahkan Product</button></a> 
-
-<p>
     <% if(category !== "All") { %>
         <a href="/product">All Products</a>
     <% } %>
+    
+<p> 
+    <a href="/product/createP"><button>Menambahkan Product</button></a> 
+    <a href="/garments"><button>Garment</button></a> 
 
-    <% if(category === "All") { %>
+
+</p>
+    
+<p>
+   
        <form action="/product" method="get">
         <select name="category" id="category" >
             <option value="">Category Product</option>
@@ -26,7 +31,7 @@
          </select>
          <button type="submit">Lihat</button>
         </form>
-    <% } %>
+   
 </p>
 <hr>
     <ul>

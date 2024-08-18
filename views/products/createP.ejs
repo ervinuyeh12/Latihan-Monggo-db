@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menambahkan Produk Garment</title>
+    <title>Menambahkan Produk Tanpa Garment</title>
 </head>
 <body>
-    <h1>Add a garment product</h1>
+    <h1>Add a product</h1>
     <ul>
 
-    <form action="/garments/<%= garment_id %>/product" method="post">
+    <form action="/product" method="post">
         <li>
             <label for="name">Nama Produk</label>
             <input type="text" name="name" id="name">
@@ -39,6 +39,13 @@
                     <option value="Celana">Celana</option>
                     <option value="Jaket">Jaket</option>
             </select>
+        </li>
+
+        <li>
+            <label for="garment">Jenis Garment</label>
+            <% for(let garment of garments) { %>
+              <option value=" <%= garment.name %>"> <%= garment.name %></option> 
+            <% } %>
         </li>
         <button type="submit">Submit</button>
     </form>
